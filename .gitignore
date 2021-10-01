@@ -26,7 +26,6 @@ Obj/
 ClientApp/.env
 ClientApp/node_modules	
 Photos
-Properties
 
 # Visual Studio 2015 cache/options directory
 .vs/
