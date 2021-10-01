@@ -15,6 +15,7 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+Photos/
 x64/
 x86/
 build/
@@ -25,7 +26,6 @@ obj/
 Obj/
 ClientApp/.env
 ClientApp/node_modules	
-Photos
 
 # Visual Studio 2015 cache/options directory
 .vs/
