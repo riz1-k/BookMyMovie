@@ -30,7 +30,7 @@ namespace BookMyMovie_Reactjs.Controllers
         public JsonResult Get()
         {
             string query = @"
-                    select MovieId,MovieName,Category,Rating,ReleaseDate,Summary from dbo.Movies";
+                    select MovieId,MovieName,Category,Rating,PosterFileName,ReleaseDate,Summary from dbo.Movies";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("MovieAppConnection");
             SqlDataReader myReader;
