@@ -15,7 +15,6 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-Photos/
 x64/
 x86/
 build/
@@ -24,6 +23,7 @@ bin/
 Bin/
 obj/
 Obj/
+Photos/
 ClientApp/.env
 ClientApp/node_modules	
 
