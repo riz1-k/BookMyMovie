@@ -30,7 +30,7 @@ namespace BookMyMovie_Reactjs.Controllers
         public JsonResult Get()
         {
             string query = @"
-                    select MovieId,MovieName,Category,Rating,PosterFileName,ReleaseDate,Summary from dbo.Movies";
+                    select * from dbo.Movies";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("MovieAppConnection");
             SqlDataReader myReader;
@@ -48,11 +48,38 @@ namespace BookMyMovie_Reactjs.Controllers
             }
             return new JsonResult(table);
         }
+
+        [HttpGet("{id}")]
+
+        public JsonResult Get(int id)
+        {
+            string query = @"
+                    select * from dbo.Movies where MovieId="+id+@"
+                    ";
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("MovieAppConnection");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
+
+
         [HttpPost]
         public JsonResult Post(Movies mov)
         {
             string query = @"
-                    insert into dbo.Movies (MovieName,Category,PosterFileName,Rating,ReleaseDate,Summary)
+                    insert into dbo.Movies (MovieName,Category,PosterFileName,Rating,ReleaseDate,Trailer,Summary)
                     values
                     (
                     '" + mov.MovieName + @"'
@@ -60,6 +87,7 @@ namespace BookMyMovie_Reactjs.Controllers
                     ,'" + mov.PosterFileName + @"'
                     ,'" + mov.Rating + @"'
                     ,'" + mov.ReleaseDate + @"'
+                    ,'" + mov.Trailer + @"'
                     ,'" + mov.Summary + @"'
                     )";
             DataTable table = new DataTable();
@@ -89,6 +117,7 @@ namespace BookMyMovie_Reactjs.Controllers
                     ,PosterFileName = '" + mov.PosterFileName + @"'
                     ,Rating = '" + mov.Rating + @"'
                     ,ReleaseDate = '" + mov.ReleaseDate + @"'
+                    ,Trailer = '" + mov.Trailer + @"'
                     ,Summary = '" + mov.Summary + @"'
                     where MovieId = '" + mov.MovieId + @"'
                     ";

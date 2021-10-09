@@ -95,7 +95,7 @@ namespace BookMyMovie_Reactjs
             });
 
             //Enable Cors
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());            
         }
     }
 }

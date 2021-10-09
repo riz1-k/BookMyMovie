@@ -18,7 +18,7 @@
     "BookMyMovie_Reactjs": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:4000;http://localhost:3000",
+      "applicationUrl": "https://localhost:4000;https://localhost:3000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
