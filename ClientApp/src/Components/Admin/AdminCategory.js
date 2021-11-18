@@ -10,10 +10,6 @@ export default function Category() {
   const [editModalData, setEditModalData] = useState({
     catid: '',
     catname: '',
-    category: '',
-    rating: 0,
-    releasedate: null,
-    summary: '',
   });
   const { catid, catname } = editModalData;
   const refreshList = () => {

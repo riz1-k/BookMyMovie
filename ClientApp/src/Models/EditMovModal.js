@@ -3,23 +3,33 @@ import { Modal, Button, Row, Col, Form, Image } from 'react-bootstrap';
 
 export default function EditMovModal(props) {
   const [cats, setCats] = useState([]);
-  const [photofilename, setPhotofilename] = useState('anonymous.png');
+  const [cinemas, setcinemas] = useState([]);
+
   const {
     movid,
     movname,
     category,
     rating,
-    releasedate,
-    trailer,
+    showdate,
+    cinema,
+    showtiming,
     summary,
+    posterfilename,
+    price,
     onHide,
   } = props;
+  const [photofilename, setPhotofilename] = useState(posterfilename);
 
   useEffect(() => {
     fetch(process.env.REACT_APP_API + 'categories')
       .then(response => response.json())
       .then(data => {
         setCats(data);
+      });
+    fetch(process.env.REACT_APP_API + 'cinemas')
+      .then(response => response.json())
+      .then(data => {
+        setcinemas(data);
       });
   }, []);
 
@@ -35,11 +45,13 @@ export default function EditMovModal(props) {
         MovieId: event.target.MovieId.value,
         MovieName: event.target.MovieName.value,
         Category: event.target.Category.value,
+        Cinema: event.target.Cinema.value,
+        ShowDate: event.target.ShowDate.value,
+        ShowTiming: event.target.ShowTiming.value,
         PosterFileName: photofilename,
         Rating: event.target.Rating.value,
-        ReleaseDate: event.target.ReleaseDate.value,
-        Trailer: event.target.Trailer.value,
         Summary: event.target.Summary.value,
+        Price: event.target.Price.value,
       }),
     })
       .then(res => res.json())
@@ -83,7 +95,7 @@ export default function EditMovModal(props) {
         aria-labelledby='contained-modal-title-vcenter'
         centered
       >
-        <Modal.Header clooseButton>
+        <Modal.Header closeButton>
           <Modal.Title id='contained-modal-title-vcenter'>
             Edit Movie
           </Modal.Title>
@@ -121,34 +133,46 @@ export default function EditMovModal(props) {
                     ))}
                   </Form.Control>
                 </Form.Group>
+                <Form.Group controlId='Cinema'>
+                  <Form.Label>Cinema</Form.Label>
+                  <Form.Control defaultValue={cinema} as='select'>
+                    {cinemas.map(cin => (
+                      <option key={cin.CinemaId}>
+                        {cin.CinemaName},{cin.CinemaAddress}
+                      </option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group controlId='ShowDate'>
+                  <Form.Label>ShowDate</Form.Label>
+                  <Form.Control
+                    type='date'
+                    name='ShowDate'
+                    required
+                    defaultValue={showdate}
+                    placeholder='Day of the show'
+                  />
+                </Form.Group>
+                <Form.Group controlId='ShowTiming'>
+                  <Form.Label>Show Timing</Form.Label>
+                  <Form.Control
+                    type='time'
+                    name='ShowTiming'
+                    defaultValue={showtiming}
+                    required
+                    placeholder='Show Timing'
+                  />
+                </Form.Group>
                 <Form.Group controlId='Rating'>
                   <Form.Label>Rating</Form.Label>
                   <Form.Control
                     type='number'
                     name='Rating'
+                    min='1'
+                    max='10'
                     required
-                    placeholder='Rating'
                     defaultValue={rating}
-                  />
-                </Form.Group>
-                <Form.Group controlId='ReleaseDate'>
-                  <Form.Label>Release Date</Form.Label>
-                  <Form.Control
-                    type='date'
-                    name='DateOfJoining'
-                    required
-                    placeholder='DateOfJoining'
-                    defaultValue={releasedate}
-                  />
-                </Form.Group>
-                <Form.Group controlId='Trailer'>
-                  <Form.Label>Trailer</Form.Label>
-                  <Form.Control
-                    type='text'
-                    name='Trailer'
-                    required
-                    placeholder='Trialer'
-                    defaultValue={trailer}
+                    placeholder='Rating'
                   />
                 </Form.Group>
                 <Form.Group controlId='Summary'>
@@ -159,6 +183,19 @@ export default function EditMovModal(props) {
                     required
                     placeholder='Summary'
                     defaultValue={summary}
+                  />
+                </Form.Group>
+
+                <Form.Group controlId='Price'>
+                  <Form.Label>Price</Form.Label>
+                  <Form.Control
+                    type='number'
+                    name='Price'
+                    required
+                    placeholder='Price'
+                    min='50'
+                    step='20'
+                    defaultValue={price}
                   />
                 </Form.Group>
 

@@ -5,6 +5,8 @@ import AdminMovie from './Components/Admin/AdminMovie';
 import AdminUsers from './Components/Admin/AdminUsers';
 import UserNavigation from './Components/User/UserNavigation';
 import AboutMovie from './Components/User/AboutMovie';
+import AdminCinema from './Components/Admin/AdminCinema';
+import AdminBooked from './Components/Admin/AdminBooked';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Home from './Components/User/Home';
 import Login from './Components/User/Login';
@@ -34,6 +36,8 @@ const MainRouter = () => {
         <Route path='/admin/' exact component={AdminUsers} />
         <Route path='/admin/movies' component={AdminMovie} />
         <Route path='/admin/categories' component={AdminCategory} />
+        <Route path='/admin/cinemas' component={AdminCinema} />
+        <Route path='/admin/booked' component={AdminBooked} />
       </Switch>
     </div>
   );

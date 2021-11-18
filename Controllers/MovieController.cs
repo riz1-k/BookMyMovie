@@ -79,16 +79,18 @@ namespace BookMyMovie_Reactjs.Controllers
         public JsonResult Post(Movies mov)
         {
             string query = @"
-                    insert into dbo.Movies (MovieName,Category,PosterFileName,Rating,ReleaseDate,Trailer,Summary)
+                    insert into dbo.Movies (MovieName,Category,Cinema,ShowDate,ShowTiming,PosterFileName,Rating,Summary,Price)
                     values
                     (
                     '" + mov.MovieName + @"'
                     ,'" + mov.Category + @"'
+                    ,'" + mov.Cinema + @"'
+                    ,'" + mov.ShowDate + @"'
+                    ,'" + mov.ShowTiming + @"'
                     ,'" + mov.PosterFileName + @"'
                     ,'" + mov.Rating + @"'
-                    ,'" + mov.ReleaseDate + @"'
-                    ,'" + mov.Trailer + @"'
                     ,'" + mov.Summary + @"'
+                    ,'" + mov.Price + @"'
                     )";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("MovieAppConnection");
@@ -114,11 +116,13 @@ namespace BookMyMovie_Reactjs.Controllers
                    update dbo.Movies set
                     MovieName = '" + mov.MovieName + @"'
                     ,Category = '" + mov.Category + @"'
+                    ,Cinema = '" + mov.Cinema+ @"'
+                    ,ShowDate = '" + mov.ShowDate + @"'
+                    ,ShowTiming = '" + mov.ShowTiming+ @"'
                     ,PosterFileName = '" + mov.PosterFileName + @"'
                     ,Rating = '" + mov.Rating + @"'
-                    ,ReleaseDate = '" + mov.ReleaseDate + @"'
-                    ,Trailer = '" + mov.Trailer + @"'
                     ,Summary = '" + mov.Summary + @"'
+                    ,Price = '" + mov.Price + @"'
                     where MovieId = '" + mov.MovieId + @"'
                     ";
             DataTable table = new DataTable();

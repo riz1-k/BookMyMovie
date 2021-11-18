@@ -13,9 +13,12 @@ export default function Movie() {
     movname: '',
     category: '',
     rating: 0,
-    releasedate: null,
+    showdate: null,
+    Cinema: '',
+    ShowTiming: null,
     posterFileName: '',
     summary: '',
+    price: '',
   });
   const classNames = (...classes) => classes.filter(Boolean).join(' ');
   const {
@@ -23,9 +26,12 @@ export default function Movie() {
     category,
     movname,
     rating,
-    releasedate,
+    showdate,
+    cinema,
+    showtiming,
     posterFileName,
     summary,
+    price,
   } = editModalData;
   const refreshList = () => {
     fetch(process.env.REACT_APP_API + 'movies')
@@ -67,8 +73,11 @@ export default function Movie() {
                 <tr className='text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600 '>
                   <th className='px-4 py-3'>Movie</th>
                   <th className='px-4 py-3'>Rating</th>
-                  <th className='px-4 py-3'>Category</th>
-                  <th className='px-4 py-3'>Release Date</th>
+                  <th className='px-3 py-3'>Category</th>
+                  <th className='px-4 py-3'>Cinema</th>
+                  <th className='px-4 py-3'>Show Date</th>
+                  <th className='px-4 py-3'>Show Timing</th>
+                  <th className='px-4 py-3'>Price</th>
                   <th className='px-1 py-3'>Options</th>
                 </tr>
               </thead>
@@ -109,15 +118,34 @@ export default function Movie() {
                           `px-2 py-1 font-semibold leading-tight`,
                           mov.Category === 'Sci-Fi' &&
                             `text-green-600 bg-green-100`,
-                          mov.Category === 'Horror' && `text-red-600 bg-red-100`
+                          mov.Category === 'Horror' &&
+                            `text-red-600 bg-red-100`,
+                          mov.Category === 'Thriller' &&
+                            `text-blue-600 bg-blue-100`,
+                          mov.Category === 'Fantasy' &&
+                            `text-purple-600 bg-purple-200`,
+                          mov.Category === 'Comedy' &&
+                            `text-yellow-500 bg-yellow-100`,
+                          mov.Category === 'Drama' &&
+                            `text-indigo-400 bg-indigo-100`,
+                          mov.Category === 'Romance' &&
+                            `text-pink-400 bg-pink-100`
                         )}
                       >
                         {mov.Category}
                       </span>
                     </td>
+                    <td className='px-4 py-3 text-sm border'>{mov.Cinema}</td>
+
                     <td className='px-4 py-3 text-sm border'>
-                      {moment(mov.ReleaseDate).format('ll')}
+                      {moment(mov.ShowDate).format('LL')}
                     </td>
+                    <td className='px-4 py-3 text-sm border'>
+                      {mov.ShowTiming}
+                      {console.log(mov.ShowTiming)}
+                    </td>
+                    <td className='px-4 py-3 text-sm border'>{mov.Price}</td>
+
                     <td className='px-1 py-3 text-sm border'>
                       <div className='flex justify-start mx-2'>
                         <button
@@ -127,11 +155,14 @@ export default function Movie() {
                             setEditModalData({
                               movid: mov.MovieId,
                               movname: mov.MovieName,
-                              category: mov.category,
-                              rating: mov.rating,
-                              releasedate: mov.releasedate,
-                              posterFileName: mov.posterFileName,
-                              summary: mov.summary,
+                              category: mov.Category,
+                              rating: mov.Rating,
+                              showdate: mov.ShowDate,
+                              cinema: mov.Cinema,
+                              showtiming: mov.ShowTiming,
+                              photofilename: mov.photofilename,
+                              summary: mov.Summary,
+                              price: mov.Price,
                             });
                           }}
                         >
@@ -152,9 +183,12 @@ export default function Movie() {
                         movname={movname}
                         category={category}
                         rating={rating}
-                        releasedate={releasedate}
+                        showdate={showdate}
+                        cinema={cinema}
+                        showtiming={showtiming}
                         posterFileName={posterFileName}
                         summary={summary}
+                        price={price}
                       />
                     </td>
                   </tr>

@@ -33,7 +33,7 @@ export default function AddCatModal(props) {
         aria-labelledby='contained-modal-title-vcenter'
         centered
       >
-        <Modal.Header clooseButton>
+        <Modal.Header closeButton>
           <Modal.Title id='contained-modal-title-vcenter'>
             Add a Category
           </Modal.Title>

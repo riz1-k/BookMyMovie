@@ -41,11 +41,15 @@ function SignUp({ setsignup }) {
         .then(res => res.json())
         .then(
           result => {
-            alert(result);
-            console.log('account created');
+            localStorage.setItem('userName:', userInfo.UserName);
+            localStorage.setItem('userEmail:', userInfo.UserEmail);
+            alert('Account created');
+            setsignup(false);
+            console.log(result);
           },
           error => {
             alert('Failed while tring  to create an account');
+            console.log(error);
           }
         );
     } else {
@@ -57,7 +61,6 @@ function SignUp({ setsignup }) {
 
   const changeHandler = e => {
     setuserInfo({ ...userInfo, [e.target.name]: e.target.value });
-    console.log(userInfo);
   };
 
   return (
@@ -131,7 +134,6 @@ function SignUp({ setsignup }) {
             </p>
           </div>
         </form>
-        <button onClick={refreshList}>check</button>
       </div>
     </>
   );

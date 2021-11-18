@@ -1,7 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IoClose } from 'react-icons/io5';
+import { useHistory } from 'react-router-dom';
 
 function Login({ setlogin }) {
+  const history = useHistory();
+
+  function handleClick() {
+    history.push('/admin');
+  }
   const [userInfo, setuserInfo] = useState([]);
   const [Users, setUsers] = useState([]);
   const ref = useRef(null);
@@ -26,9 +32,22 @@ function Login({ setlogin }) {
         user.UserPassword === userInfo.UserPassword
     );
 
+    var userName = '';
+    findUser.forEach(e => {
+      userName = e.UserName;
+    });
+
     if (findUser.length > 0) {
       console.log('logged in');
+      alert('Successfully Logged In');
+      localStorage.setItem('userName:', userName);
+      localStorage.setItem('userEmail:', userInfo.UserEmail);
+      if (userInfo.UserEmail === 'admin@gmail.com') {
+        handleClick();
+      }
+      setlogin(false);
     } else {
+      alert('Login failed :( Please check your credentials ');
       console.log('login failed');
     }
   };
@@ -75,5 +94,4 @@ function Login({ setlogin }) {
     </div>
   );
 }
-
 export default Login;

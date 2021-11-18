@@ -3,6 +3,7 @@ import { Modal, Button, Row, Col, Form, Image } from 'react-bootstrap';
 
 export default function AddMovModal(props) {
   const [cats, setCats] = useState([]);
+  const [cinemas, setcinemas] = useState([]);
   const [photofilename, setPhotofilename] = useState('anonymous.png');
 
   useEffect(() => {
@@ -10,6 +11,11 @@ export default function AddMovModal(props) {
       .then(response => response.json())
       .then(data => {
         setCats(data);
+      });
+    fetch(process.env.REACT_APP_API + 'cinemas')
+      .then(response => response.json())
+      .then(data => {
+        setcinemas(data);
       });
   }, []);
 
@@ -26,10 +32,13 @@ export default function AddMovModal(props) {
       body: JSON.stringify({
         MovieName: event.target.MovieName.value,
         Category: event.target.Category.value,
+        Cinema: event.target.Cinema.value,
+        ShowDate: event.target.ShowDate.value,
+        ShowTiming: event.target.ShowTiming.value,
         PosterFileName: photofilename,
         Rating: event.target.Rating.value,
-        ReleaseDate: event.target.ReleaseDate.value,
         Summary: event.target.Summary.value,
+        Price: event.target.Price.value,
       }),
     })
       .then(res => res.json())
@@ -38,6 +47,7 @@ export default function AddMovModal(props) {
           alert(result);
         },
         error => {
+          console.log(error);
           alert('Failed');
         }
       );
@@ -59,12 +69,16 @@ export default function AddMovModal(props) {
     })
       .then(res => res.json())
       .then(
-        result => {},
+        result => {
+          console.log(result);
+        },
         error => {
+          console.log(error);
           alert('Failed');
         }
       );
   };
+
   return (
     <div className='container'>
       <Modal
@@ -73,7 +87,7 @@ export default function AddMovModal(props) {
         aria-labelledby='contained-modal-title-vcenter'
         centered
       >
-        <Modal.Header clooseButton>
+        <Modal.Header closeButton>
           <Modal.Title id='contained-modal-title-vcenter'>
             Add Movie
           </Modal.Title>
@@ -99,31 +113,43 @@ export default function AddMovModal(props) {
                     ))}
                   </Form.Control>
                 </Form.Group>
+                <Form.Group controlId='Cinema'>
+                  <Form.Label>Cinema</Form.Label>
+                  <Form.Control as='select'>
+                    {cinemas.map(cin => (
+                      <option key={cin.CinemaId}>
+                        {cin.CinemaName},{cin.CinemaAddress}
+                      </option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group controlId='ShowDate'>
+                  <Form.Label>ShowDate</Form.Label>
+                  <Form.Control
+                    type='date'
+                    name='ShowDate'
+                    required
+                    placeholder='Day of the show'
+                  />
+                </Form.Group>
+                <Form.Group controlId='ShowTiming'>
+                  <Form.Label>Show Timing</Form.Label>
+                  <Form.Control
+                    type='time'
+                    name='ShowTiming'
+                    required
+                    placeholder='Show Timing'
+                  />
+                </Form.Group>
                 <Form.Group controlId='Rating'>
                   <Form.Label>Rating</Form.Label>
                   <Form.Control
                     type='number'
                     name='Rating'
+                    min='1'
+                    max='10'
                     required
                     placeholder='Rating'
-                  />
-                </Form.Group>
-                <Form.Group controlId='ReleaseDate'>
-                  <Form.Label>Release Date</Form.Label>
-                  <Form.Control
-                    type='date'
-                    name='DateOfJoining'
-                    required
-                    placeholder='DateOfJoining'
-                  />
-                </Form.Group>
-                <Form.Group controlId='Trailer'>
-                  <Form.Label>Trailer</Form.Label>
-                  <Form.Control
-                    type='text'
-                    name='Trailer'
-                    required
-                    placeholder='Tailer link'
                   />
                 </Form.Group>
                 <Form.Group controlId='Summary'>
@@ -133,6 +159,17 @@ export default function AddMovModal(props) {
                     name='Summary'
                     required
                     placeholder='Summary'
+                  />
+                </Form.Group>
+                <Form.Group controlId='Price'>
+                  <Form.Label>Price</Form.Label>
+                  <Form.Control
+                    type='number'
+                    name='Price'
+                    required
+                    placeholder='Price'
+                    min='50'
+                    step='20'
                   />
                 </Form.Group>
 

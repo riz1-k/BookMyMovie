@@ -36,6 +36,20 @@ function Navigation() {
               >
                 Categories
               </NavLink>
+              <NavLink
+                className='btn btn-ghost btn-md font-poster rounded-btn '
+                to='/admin/cinemas'
+                activeClassName='border-4 border-opacity-25 border-gray-400'
+              >
+                Cinemas
+              </NavLink>
+              <NavLink
+                className='btn btn-ghost btn-md font-poster rounded-btn '
+                to='/admin/booked'
+                activeClassName='border-4 border-opacity-25 border-gray-400'
+              >
+                Bookings
+              </NavLink>
             </div>
           </div>
           <div className='navbar-end mr-4'>
